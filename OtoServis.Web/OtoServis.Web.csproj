@@ -278,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Img\Hakkimizda\" />
     <Folder Include="Img\Slider\" />
     <Folder Include="Img\Uygulamalar\" />
   </ItemGroup>
