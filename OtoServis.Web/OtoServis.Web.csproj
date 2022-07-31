@@ -278,7 +278,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Img\" />
+    <Folder Include="Img\Slider\" />
+    <Folder Include="Img\Uygulamalar\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
