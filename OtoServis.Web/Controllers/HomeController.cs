@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IdentitySample.Controllers
+namespace OtoServis.Controllers
 {
     public class HomeController : Controller
     {
@@ -21,6 +21,12 @@ namespace IdentitySample.Controllers
 
         [HttpGet]
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult Deneme()
         {
             ViewBag.Message = "Your contact page.";
 
