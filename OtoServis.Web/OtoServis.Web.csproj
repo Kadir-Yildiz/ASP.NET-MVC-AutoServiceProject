@@ -288,6 +288,16 @@
     <Folder Include="Img\Slider\" />
     <Folder Include="Img\Uygulamalar\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OtoServis.BusinessLayer\OtoServis.BusinessLayer.csproj">
+      <Project>{b2b36de6-d630-4e6c-9720-6d6956d19e32}</Project>
+      <Name>OtoServis.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OtoServis.Entities\OtoServis.Entities.csproj">
+      <Project>{bfd7c1d9-3709-4ab4-84be-5378c1bbeffe}</Project>
+      <Name>OtoServis.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
