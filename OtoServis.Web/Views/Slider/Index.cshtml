@@ -1,24 +1,47 @@
-﻿
+﻿@model IEnumerable<OtoServis.Entities.Web.Slider>
 @{
     ViewBag.Title = "Slider İşlemleri";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@using (Html.BeginForm("SliderKaydet", "Slider", FormMethod.Post, new {enctype="multipart/form-data"}))
+{
+    <div class="row">
+        <div class="col-md-3">
+            Slider Başlık
+            <input type="text" required name="Baslik" class="form-control" />
+        </div>
+        <div class="col-md-5">
+            Slider Tanımlama
+            <input type="text" required name="Tanimlama" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            Resim
+            <input type="file" required name="Resim" class="form-control" />
+        </div>
+        <div class="col-md-1">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Kaydet" />
+        </div>
+    </div>
+}
 
 <div class="row">
-    <div class="col-md-3">
-        Slider Başlık
-        <input type="text" class="form-control" />
-    </div>
-    <div class="col-md-5">
-        Slider Tanımlama
-        <input type="text" class="form-control" />
-    </div>
-    <div class="col-md-3">
-        Resim
-        <input type="file" class="form-control" />
-    </div>
-    <div class="col-md-1">
-        <br />
-        <input type="submit" class="btn btn-primary" value="Kaydet" />
-    </div>
+    <table class="table table-responsive">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <img src="@item.Resim" width="200" />
+            </td>
+            <td>
+                @item.Baslik
+            </td>
+            <td>
+                @item.Tanimlama
+            </td>
+        </tr>
+        }
+
+    </table>
 </div>
+
