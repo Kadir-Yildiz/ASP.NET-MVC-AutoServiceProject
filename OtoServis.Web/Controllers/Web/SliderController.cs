@@ -43,5 +43,26 @@ namespace OtoServis.Web.Controllers.Web
             }
 
         }
+        [HttpPost]
+        public ActionResult SliderSil(int id)
+        {
+            try
+            {
+                var slider = rpSlider.GetById(id);
+                string resimYolu = Request.MapPath(slider.Resim);
+                rpSlider.Delete(slider);
+                if (System.IO.File.Exists(resimYolu))
+                {
+                    System.IO.File.Delete(resimYolu);
+                }
+                TempData["Ok"] = "Silme İşlemi Tamamlandı!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["No"] = "Hata!";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
