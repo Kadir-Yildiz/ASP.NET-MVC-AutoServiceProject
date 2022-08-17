@@ -259,6 +259,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\Web\KampanyaController.cs" />
     <Compile Include="Controllers\Web\SliderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -298,6 +299,7 @@
     <Folder Include="Img\Hakkimizda\" />
     <Folder Include="Img\Slider\" />
     <Folder Include="Img\Uygulamalar\" />
+    <Folder Include="Views\Kampanya\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OtoServis.BusinessLayer\OtoServis.BusinessLayer.csproj">
