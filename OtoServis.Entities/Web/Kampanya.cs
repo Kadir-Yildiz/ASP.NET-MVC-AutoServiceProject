@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace OtoServis.Entities.Web
 {
@@ -11,6 +12,8 @@ namespace OtoServis.Entities.Web
     {
         [Key]
         public int KampanyaId { get; set; }
+        [AllowHtml]
+        [UIHint("tinymce_full_compressed")]
         public string Icerik { get; set; }
     }
 }

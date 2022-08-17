@@ -48,12 +48,21 @@
 
 
 <div class="container mt-4">
+    @if (ViewBag.Kampanya != null)
+            {
+                var kampanya = (Kampanya)ViewBag.Kampanya;
     <div class="row">
-        <h1 class="text-center">Kampanya / Duyuru</h1>
-        <p class="fs-3">
-            İşletmemizin <strong>periyodik bakımlarda</strong>  yapacağı <span class="text-danger fw-bold">dev indirimlerden</span> faydalanmak için bizi arayınız.
-        </p>
+        <div class="col">
+           @Html.Raw(kampanya.Icerik)
+        </div>
     </div>
+    }
+
+
+
+
+
+    
     <hr />
     <h1 class="text-center">UYGULAMALARIMIZ</h1>
     <div class="row mt-5 mb-4">
