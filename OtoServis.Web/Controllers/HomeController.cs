@@ -9,11 +9,14 @@ namespace OtoServis.Controllers
     {
         private readonly Repository<Slider> rpSlider = new Repository<Slider>();
         private readonly Repository<Kampanya> rpKampanya = new Repository<Kampanya>();
+        private readonly Repository<Uygulama> rpUygulama = new Repository<Uygulama>();
+        
         [HttpGet]
         public ActionResult Index()
         {
             ViewBag.Slider = rpSlider.List();
             ViewBag.Kampanya = rpKampanya.List().FirstOrDefault();
+            ViewBag.Uygulama = rpUygulama.List();
             return View();
         }
 

@@ -12,5 +12,7 @@ namespace OtoServis.DataAccessLayer
     {
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Kampanya> Kampanyas { get; set; }
+        public DbSet<Uygulama> Uygulamas { get; set; }
+        public DbSet<Hakkimizda> Hakkimizdas { get; set; }
     }
 }
