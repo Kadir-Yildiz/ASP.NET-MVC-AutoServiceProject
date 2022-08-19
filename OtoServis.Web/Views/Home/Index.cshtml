@@ -88,19 +88,17 @@
     <hr />
     <h1 class="text-center">HAKKIMIZDA</h1>
     <div class="row mt-5 mb-4">
-        <div class="col-md-4">
-            <img class="img-fluid" src="https://img.freepik.com/premium-photo/car-mechanic-car-service-checking-up-car_1303-32025.jpg?w=1060" alt="" />
-        </div>
-        <div class="col-md-8">
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-                Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. <br />
-                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-                Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.<br />
-                Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.
+        @if (ViewBag.Hakkimizda != null)
+        {
+            var hakkimizda = (Hakkimizda)ViewBag.Hakkimizda;
+            <div class="col-md-4">
+                <img class="img-fluid" src="@hakkimizda.Resim" alt="" />
+            </div>
+            <div class="col-md-8">
+                @Html.Raw(hakkimizda.Icerik)
+            </div>
+        }
 
-            </p>
-        </div>
     </div>
     <hr />
     <h1 class="text-center">BLOG</h1>
