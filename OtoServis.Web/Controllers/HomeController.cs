@@ -11,6 +11,7 @@ namespace OtoServis.Controllers
         private readonly Repository<Kampanya> rpKampanya = new Repository<Kampanya>();
         private readonly Repository<Uygulama> rpUygulama = new Repository<Uygulama>();
         private readonly Repository<Hakkimizda> rpHakkimizda = new Repository<Hakkimizda>();
+        private readonly Repository<Blog> rpBlog = new Repository<Blog>();
 
         
         [HttpGet]
@@ -20,6 +21,7 @@ namespace OtoServis.Controllers
             ViewBag.Kampanya = rpKampanya.List().FirstOrDefault();
             ViewBag.Uygulama = rpUygulama.List();
             ViewBag.Hakkimizda = rpHakkimizda.List().FirstOrDefault();
+            ViewBag.Blog = rpBlog.List().OrderByDescending(x=> x.BlogId).Take(4).ToList();
             return View();
         }
 

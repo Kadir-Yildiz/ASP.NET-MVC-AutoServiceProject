@@ -1,4 +1,5 @@
-﻿@using OtoServis.Entities.Web;
+﻿@using System.Text.RegularExpressions;
+@using OtoServis.Entities.Web;
 @{
     ViewBag.Title = "Oto Servis";
 
@@ -12,7 +13,7 @@
         <div class="carousel-indicators">
             @for (int i = 0; i < slider.Count; i++)
             {
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @i"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @i"></button>
             }
         </div>
         <div class="carousel-inner">
@@ -49,20 +50,20 @@
 
 <div class="container mt-4">
     @if (ViewBag.Kampanya != null)
-            {
-                var kampanya = (Kampanya)ViewBag.Kampanya;
-    <div class="row">
-        <div class="col">
-           @Html.Raw(kampanya.Icerik)
+    {
+        var kampanya = (Kampanya)ViewBag.Kampanya;
+        <div class="row">
+            <div class="col">
+                @Html.Raw(kampanya.Icerik)
+            </div>
         </div>
-    </div>
     }
 
 
 
 
 
-    
+
     <hr />
     <h1 class="text-center">UYGULAMALARIMIZ</h1>
     <div class="row mt-5">
@@ -103,30 +104,24 @@
     <hr />
     <h1 class="text-center">BLOG</h1>
     <div class="row mt-5">
-        <div class="col-md-6">
-            <h5>Periyodik Bakım Süresi</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-            </p>
+        @if (ViewBag.Blog != null)
+        {
+            var blog = (List<Blog>)ViewBag.Blog;
+            foreach (var item in blog)
+            {
+        <div class="col-md-6 mb-4">
+            <h5>@item.Baslik</h5>
+            @{
+                string kisaltma = Regex.Replace(item.Icerik, "<.*?>", string.Empty);
+                if (kisaltma.Length > 200)
+                {
+                    kisaltma = kisaltma.Substring(0, 200) + "...";
+                }
+                @kisaltma
+            }
         </div>
-        <div class="col-md-6">
-            <h5>Periyodik Bakım Süresi</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-            </p>
-        </div>
-        <div class="col-md-6">
-            <h5>Periyodik Bakım Süresi</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-            </p>
-        </div>
-        <div class="col-md-6">
-            <h5>Periyodik Bakım Süresi</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-            </p>
-        </div>
+            }
+        }
     </div>
     <hr />
     <div class="row">

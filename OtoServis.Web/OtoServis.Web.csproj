@@ -517,6 +517,7 @@
     <Compile Include="Controllers\Web\KampanyaController.cs" />
     <Compile Include="Controllers\Web\SliderController.cs" />
     <Compile Include="Controllers\Web\UygulamaController.cs" />
+    <Compile Include="Custom\Ozel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
