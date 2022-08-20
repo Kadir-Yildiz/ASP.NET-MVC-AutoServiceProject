@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OtoServis.Entities.Web.Blog>
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col">
+        <input type="button" class="btn btn-dark" value="Yeni Blog Oluştur" />
+    </div>
+</div>
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Blog Başlığı</th>
+            <th>Blog İçeriği</th>
+            <th>Tarih</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @item.Baslik
+    </td>
+    <td>
+        @item.Icerik
+    </td>
+    <td>
+        @item.Tarih.ToShortDateString()
+    </td>
+    <td>
+        <div class="btn-group">
+            <input type="button" class="btn btn-sm btn-danger" value="Sil" />
+            <input type="button" class="btn btn-sm btn-secondary" value="Düzenle" />
+        </div>
+    </td>
+</tr>
+    }
+
+</table>
+
