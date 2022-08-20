@@ -15,5 +15,24 @@ namespace OtoServis.Web.Controllers.Web
         {
             return View(rpBlog.List().OrderByDescending(x=> x.BlogId));
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Blog blog)
+        {
+            try
+            {
+                blog.Tarih = DateTime.Now;
+                rpBlog.Insert(blog);
+                TempData["Ok"] = "Blog Kaydedildi";
+            }
+            catch (Exception)
+            {
+                TempData["No"] = "Hata Oluştu";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
