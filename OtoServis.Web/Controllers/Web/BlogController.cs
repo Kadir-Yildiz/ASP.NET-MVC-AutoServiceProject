@@ -34,5 +34,11 @@ namespace OtoServis.Web.Controllers.Web
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Sil(int blogId)
+        {
+            var silinecek = rpBlog.GetById(blogId);
+            return View(silinecek);
+        }
     }
 }

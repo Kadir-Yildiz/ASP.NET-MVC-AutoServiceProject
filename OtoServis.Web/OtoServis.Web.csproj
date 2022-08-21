@@ -551,6 +551,8 @@
     <Content Include="Views\Hakkimizda\Index.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Home\BlogDetay.cshtml" />
+    <Content Include="Views\Blog\Sil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

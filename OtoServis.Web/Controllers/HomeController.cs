@@ -47,5 +47,11 @@ namespace OtoServis.Controllers
 
             return View();
         }
+        [Route("{baslik}/{blogId:int}")]
+        public ActionResult BlogDetay(string baslik,int blogId)
+        {
+            var detay = rpBlog.GetById(blogId);
+            return View(detay);
+        }
     }
 }

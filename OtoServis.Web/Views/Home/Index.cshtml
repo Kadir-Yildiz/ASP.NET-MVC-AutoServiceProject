@@ -1,5 +1,6 @@
 ﻿@using System.Text.RegularExpressions;
 @using OtoServis.Entities.Web;
+@using OtoServis.Web.Custom;
 @{
     ViewBag.Title = "Oto Servis";
 
@@ -110,7 +111,10 @@
             foreach (var item in blog)
             {
         <div class="col-md-6 mb-4">
-            <h5>@item.Baslik</h5>
+            <h5>
+                @Html.ActionLink(item.Baslik,"BlogDetay", new { baslik = Ozel.LinkDuzenle(item.Baslik),blogId=item.BlogId}, new {@class = "text-dark"})
+            </h5>
+            
             @{
                 string kisaltma = Regex.Replace(item.Icerik, "<.*?>", string.Empty);
                 if (kisaltma.Length > 200)
