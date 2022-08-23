@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace OtoServis.Web.Controllers.Web
 {
+    [Authorize(Roles = "Admin")]
     public class SliderController : Controller
     {
         private readonly Repository<Slider> rpSlider = new Repository<Slider>();

@@ -53,7 +53,7 @@
     @if (ViewBag.Kampanya != null)
     {
         var kampanya = (Kampanya)ViewBag.Kampanya;
-        <div class="row">
+        <div id="kampanya" class="row">
             <div class="col">
                 @Html.Raw(kampanya.Icerik)
             </div>
@@ -66,7 +66,7 @@
 
 
     <hr />
-    <h1 class="text-center">UYGULAMALARIMIZ</h1>
+    <h1 id="uygulamalarimiz" class="text-center">UYGULAMALARIMIZ</h1>
     <div class="row mt-5">
         @if (ViewBag.Uygulama != null)
         {
@@ -88,7 +88,7 @@
 
     </div>
     <hr />
-    <h1 class="text-center">HAKKIMIZDA</h1>
+    <h1 id="hakkimizda" class="text-center">HAKKIMIZDA</h1>
     <div class="row mt-5 mb-4">
         @if (ViewBag.Hakkimizda != null)
         {
@@ -103,7 +103,7 @@
 
     </div>
     <hr />
-    <h1 class="text-center">BLOG</h1>
+    <h1 id="blog" class="text-center">BLOG</h1>
     <div class="row mt-5">
         @if (ViewBag.Blog != null)
         {
@@ -128,7 +128,7 @@
         }
     </div>
     <hr />
-    <div class="row">
+    <div id="iletisim" class="row">
         <div class="col-12">
             @if (ViewBag.Harita != null)
             {

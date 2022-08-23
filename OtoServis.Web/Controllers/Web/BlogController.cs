@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace OtoServis.Web.Controllers.Web
 {
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         private readonly Repository<Blog> rpBlog = new Repository<Blog>();
