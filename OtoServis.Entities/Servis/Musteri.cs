@@ -11,8 +11,10 @@ namespace OtoServis.Entities.Servis
     {
         [Key]
         public int MusteriId { get; set; }
+        [Required(ErrorMessage ="Ad Soyad / Unvan alanı boş geçilemez!")]
         [MaxLength(100)]
         public string AdSoyad { get; set; }
+        [Required(ErrorMessage = "Telefon alanı boş geçilemez!")]
         [MaxLength(11)]
         public string Telefon { get; set; }
         [MaxLength(100)]
