@@ -12,6 +12,7 @@ namespace OtoServis.Entities.Servis
         [Key]
         public int ModelId { get; set; }
         public string ModelAd { get; set; }
+        public bool Silindi { get; set; }
         public int MarkaId { get; set; }
         public virtual Marka Marka { get; set; }
     }

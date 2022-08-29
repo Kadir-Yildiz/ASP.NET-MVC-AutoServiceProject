@@ -14,7 +14,7 @@ namespace OtoServis.Web.Controllers.Servis
         private readonly Repository<Marka> rpMarka = new Repository<Marka>();
         public ActionResult Index()
         {
-            return View(rpMarka.Get().OrderBy(x=> x.MarkaAd).ToList());
+            return View(rpMarka.Get(x=>x.Silindi==false).OrderBy(x=> x.MarkaAd).ToList());
         }
         public JsonResult ModelDoldur(int markaId)
         {
@@ -35,13 +35,31 @@ namespace OtoServis.Web.Controllers.Servis
             var marka = rpMarka.GetById(markaId);
             ViewBag.Title = marka.MarkaAd + " Model Listesi";
             ViewBag.MarkaId = markaId;
-            return View(rpModel.Get(x => x.MarkaId == markaId).ToList());
+            return View(rpModel.Get(x => x.MarkaId == markaId && x.Silindi==false).ToList());
         }
         public ActionResult ModelKaydet(Model model)
         {
             rpModel.Insert(model);
             TempData["Ok"] = model.ModelAd + " Kaydedildi!";
             return RedirectToAction("ModelListesi", new { markaId = model.MarkaId });
+        }
+        [HttpPost]
+        public ActionResult MarkaSil(int id)
+        {
+            var marka = rpMarka.GetById(id);
+            marka.Silindi = true;
+            rpMarka.Update(marka);
+            TempData["Ok"] = marka.MarkaAd + " Markası Silindi!";
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult ModelSil(int id)
+        {
+            var model = rpModel.GetById(id);
+            model.Silindi = true;
+            rpModel.Update(model);
+            TempData["Ok"] = model.ModelAd + " Modeli Silindi!";
+            return RedirectToAction("ModelListesi", new { markaId = model.MarkaId});
         }
     }
 }

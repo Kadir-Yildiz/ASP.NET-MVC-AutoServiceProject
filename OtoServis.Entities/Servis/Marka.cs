@@ -12,6 +12,7 @@ namespace OtoServis.Entities.Servis
         [Key]
         public int MarkaId { get; set; }
         public string MarkaAd { get; set; }
+        public bool Silindi { get; set; } //state/status
         public List<Model> Models { get; set; }
     }
 }
