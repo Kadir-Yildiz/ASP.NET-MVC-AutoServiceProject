@@ -567,6 +567,7 @@
     <Content Include="Views\IsEmri\Index.cshtml" />
     <Content Include="Views\IsEmri\IsEmriOlustur.cshtml" />
     <Content Include="Views\MarkaModel\Index.cshtml" />
+    <Content Include="Views\MarkaModel\ModelListesi.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

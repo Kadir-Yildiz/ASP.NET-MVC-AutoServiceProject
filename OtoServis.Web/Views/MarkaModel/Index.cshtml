@@ -6,16 +6,16 @@
 
 @using (Html.BeginForm("MarkaKaydet", "MarkaModel"))
 {
-<div class="row">
-    <div class="col-4">
-        Marka Adı Yazınız
-        <input type="text" name="MarkaAd" class="form-control" />
+    <div class="row">
+        <div class="col-4">
+            Marka Giriniz
+            <input type="text" name="MarkaAd" class="form-control" required />
+        </div>
+        <div class="col">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Kaydet" />
+        </div>
     </div>
-    <div class="col">
-        <br />
-        <input type="submit" class="btn btn-primary" value="Kaydet" />
-    </div>
-</div>
 
 }
 <hr />
@@ -23,12 +23,56 @@
     <thead>
         <tr>
             <th>Marka Adı</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.MarkaAd</td>
+            <td>@Html.ActionLink("Modeller", "ModelListesi", new { markaId = item.MarkaId }, new { @class = "btn btn-sm btn-warning" })</td>
+            <td>
+                <button onclick="silmodal(this)" type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-id="@item.MarkaId" data-bs-target="#SilModal">
+                    Sil
+                </button>
+            </td>
         </tr>
     }
 </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="SilModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Marka Silme İşlemi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstiyor Musunuz?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("MarkaSil", "MarkaModel", FormMethod.Post))
+                {
+                    <input type="hidden" id="hiddenId" name="id" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function silmodal(btn) {
+            var xid = $(btn).data('id');
+            $('#hiddenId').val(xid);
+        }
+
+
+    </script>
+}
