@@ -72,8 +72,21 @@
         if ($('#Markalar').val() == "") {
             $('#ModelId').html("");
             $('#ModelId').append($('<option></option>').val("").html("Model Seçiniz"));
-        } else {
+        }
+        else {
+            $.ajax({
+                url: '/MarkaModel/ModelDoldur',
+                type: 'GET',
+                dataType: 'JSON',
+                data: { markaId:_markaId },
+                success: function (modeller) {
+                    $('#ModelId').html("");
+                    $.each(modeller, function (i, model) {
+                        $('#ModelId').append($('<option></option>').val(model.ModelId).html(model.ModelAd));
+                    });
 
+                }
+            });
         }
     }
 </script>

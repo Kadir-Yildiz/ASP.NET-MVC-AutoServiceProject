@@ -11,9 +11,10 @@ namespace OtoServis.Web.Controllers.Servis
     public class MarkaModelController : Controller
     {
         private readonly Repository<Model> rpModel = new Repository<Model>();
+        private readonly Repository<Marka> rpMarka = new Repository<Marka>();
         public ActionResult Index()
         {
-            return View();
+            return View(rpMarka.Get().OrderBy(x=> x.MarkaAd).ToList());
         }
         public JsonResult ModelDoldur(int markaId)
         {

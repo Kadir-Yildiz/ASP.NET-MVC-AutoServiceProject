@@ -566,6 +566,7 @@
     <Content Include="Views\Musteri\Edit.cshtml" />
     <Content Include="Views\IsEmri\Index.cshtml" />
     <Content Include="Views\IsEmri\IsEmriOlustur.cshtml" />
+    <Content Include="Views\MarkaModel\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -578,7 +579,6 @@
     <Folder Include="Img\Hakkimizda\" />
     <Folder Include="Img\Slider\" />
     <Folder Include="Img\Uygulamalar\" />
-    <Folder Include="Views\MarkaModel\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OtoServis.BusinessLayer\OtoServis.BusinessLayer.csproj">
