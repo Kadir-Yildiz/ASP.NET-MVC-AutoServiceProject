@@ -11,6 +11,7 @@ namespace OtoServis.Web.Controllers.Servis
     public class IsEmriController : Controller
     {
         private readonly Repository<Musteri> rpMusteri = new Repository<Musteri>(); 
+        private readonly Repository<Marka> rpMarka = new Repository<Marka>(); 
         public ActionResult Index(string ara)
         {
             if (ara == "" || ara== null)
@@ -23,7 +24,7 @@ namespace OtoServis.Web.Controllers.Servis
         }
         public ActionResult IsEmriOlustur(int musteriId)
         {
-           
+            ViewBag.Marka = rpMarka.List();
             return View();
         }
     }

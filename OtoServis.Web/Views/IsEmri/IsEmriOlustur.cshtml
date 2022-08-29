@@ -7,16 +7,13 @@
 <div class="row">
     <div class="col-md-4">
         Marka
-        <select name="marka" class="form-control">
-            <option>Volvo</option>
-            <option>Opel</option>
-        </select>
+        @Html.DropDownList("Markalar", new SelectList(ViewBag.Marka,"MarkaId","MarkaAd"),"Marka Seç" , 
+       new { @class="form-control",required="required", onchange="ModelDoldur()"})
     </div>
     <div class="col-md-4">
         Model
-        <select name="marka" class="form-control">
-            <option>S40</option>
-            <option>Astra</option>
+        <select name="ModelId" id="ModelId" class="form-control">
+            
         </select>
     </div>
 </div>
@@ -67,3 +64,16 @@
         <input type="submit" class="btn btn-primary float-end mt-2" value="Kaydet" />
     </div>
 </div>
+
+
+<script>
+    function ModelDoldur() {
+        var _markaId = $('#Markalar').val();
+        if ($('#Markalar').val() == "") {
+            $('#ModelId').html("");
+            $('#ModelId').append($('<option></option>').val("").html("Model Seçiniz"));
+        } else {
+
+        }
+    }
+</script>

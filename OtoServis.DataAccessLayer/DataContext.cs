@@ -18,5 +18,7 @@ namespace OtoServis.DataAccessLayer
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<HaritaIletisim> HaritaIletisims { get; set; }
         public DbSet<Musteri> Musteris { get; set; }
+        public DbSet<Marka> Markas { get; set; }
+        public DbSet<Model> Models { get; set; }
     }
 }
