@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OtoServis.Entities.Servis.IsEmri>
+@{
+    ViewBag.Title = "Açık İş Emirleri";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<table class="table table-sm table-responsive">
+    <thead>
+        <tr>
+            <td>Marka</td>
+            <td>Model</td>
+            <td>Plaka</td>
+            <td>Şase No</td>
+            <td>Müşteri</td>
+            <td>Telefon</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Model.Marka.MarkaAd</td>
+            <td>@item.Model.ModelAd</td>
+            <td>@item.Plaka</td>
+            <td>@item.SaseNo</td>
+            <td>@item.Musteri.AdSoyad</td>
+            <td>@item.Musteri.Telefon</td>
+        </tr>
+    }
+
+</table>
+

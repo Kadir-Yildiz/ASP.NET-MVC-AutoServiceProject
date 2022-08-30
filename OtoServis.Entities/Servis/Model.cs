@@ -15,5 +15,6 @@ namespace OtoServis.Entities.Servis
         public bool Silindi { get; set; }
         public int MarkaId { get; set; }
         public virtual Marka Marka { get; set; }
+        public List<IsEmri> IsEmris { get; set; }
     }
 }

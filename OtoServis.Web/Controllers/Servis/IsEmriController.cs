@@ -12,6 +12,7 @@ namespace OtoServis.Web.Controllers.Servis
     {
         private readonly Repository<Musteri> rpMusteri = new Repository<Musteri>(); 
         private readonly Repository<Marka> rpMarka = new Repository<Marka>(); 
+        private readonly Repository<IsEmri> rpIsEmri = new Repository<IsEmri>(); 
         public ActionResult Index(string ara)
         {
             if (ara == "" || ara== null)
@@ -25,7 +26,17 @@ namespace OtoServis.Web.Controllers.Servis
         public ActionResult IsEmriOlustur(int musteriId)
         {
             ViewBag.Marka = rpMarka.List();
+            ViewBag.MusteriId = musteriId;
             return View();
+        }
+        public ActionResult IsEmriKaydet(IsEmri isEmri)
+        {
+            rpIsEmri.Insert(isEmri);
+            return RedirectToAction("AcikIsEmirleri");
+        }
+        public ActionResult AcikIsEmirleri()
+        {
+            return View(rpIsEmri.Get(x=>x.Kapali == false).ToList());
         }
     }
 }
