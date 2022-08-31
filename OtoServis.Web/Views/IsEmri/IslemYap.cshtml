@@ -1,0 +1,120 @@
+﻿
+@{
+    
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        Bakım Grubu
+        @Html.DropDownList("drpBakimGrup", new SelectList(ViewBag.BakimGrup, "BakimGrupId", "BakimGrupAdi"), "Bakım Grubu Seç",
+        new { @class = "form-control form-control-sm", required = "required", onchange="BakimDoldur()"})
+    </div>
+    <div class="col-md-3">
+        Bakım Türü
+        <select name="BakimId" id="BakimId" class="form-control form-control-sm">
+        </select>
+    </div>
+    <div class="col-md-2">
+        Birim Fiyat
+        <div class="input-group input-group-sm ">
+            <span class="input-group-text">&#8378;</span>
+        <input id="bakimBirimFiyat" type="number" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="0" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        Adet
+        <input id="bakimAdet" type="number" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="1" />
+    </div>
+    <div class="col-md-2">
+        Toplam
+        <div class="input-group input-group-sm ">
+            <span class="input-group-text">&#8378;</span>
+            <input id="bakimAraToplam" type="number" class="form-control form-control-sm text-center" disabled value="0" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        <br />
+        <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    
+    <div class="col-md-6">
+        Diğer İşlem
+        <input type="text" class="form-control form-control-sm" />
+    </div>
+    <div class="col-md-2">
+        Birim Fiyat
+        <div class="input-group input-group-sm ">
+            <span class="input-group-text">&#8378;</span>
+            <input id="digerBirimFiyat" type="number" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="0" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        Adet
+        <input id="digerAdet" type="number" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="1" />
+    </div>
+    <div class="col-md-2">
+        Toplam
+        <div class="input-group input-group-sm ">
+            <span class="input-group-text">&#8378;</span>
+            <input id="digerAraToplam" type="number" class="form-control form-control-sm text-center" disabled value="0" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        <br />
+        <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
+    </div>
+</div>
+
+
+<script>
+
+    function DigerHesapla() {
+        var digerBirimFiyat = $('#digerBirimFiyat').val();
+        var digerAdet = $('#digerAdet').val();
+        if (digerBirimFiyat.length===0 || digerAdet.length===0) {
+            $('#digerAraToplam').val(0);
+        } else {
+            var digerAraToplam = digerAdet * digerBirimFiyat;
+            $('#digerAraToplam').val(digerAraToplam);
+        }
+    }
+    function BakimHesapla() {
+        var bakimBirimFiyat = $('#bakimBirimFiyat').val();
+        var bakimAdet = $('#bakimAdet').val();
+        if (bakimBirimFiyat.length === 0 || bakimAdet.length === 0) {
+            $('#bakimAraToplam').val(0);
+        } else {
+            var bakimAraToplam = bakimAdet * bakimBirimFiyat;
+            $('#bakimAraToplam').val(bakimAraToplam);
+        }
+    }
+
+
+    function BakimDoldur() {
+        var _bakimGrupId = $('#drpBakimGrup').val();
+        if ($('#drpBakimGrup').val() == "") {
+            $('#MBakimId').html("");
+            $('#BakimId').append($('<option></option>').val("").html("Bakım Türü Seçiniz"));
+        }
+        else {
+            $.ajax({
+                url: '/BakimGrup/BakimDoldur',
+                type: 'GET',
+                dataType: 'JSON',
+                data: { bakimGrupId: _bakimGrupId},
+                success: function (bakimlar) {
+                    $('#BakimId').html("");
+                    $.each(bakimlar, function (i, bakim) {
+                        $('#BakimId').append($('<option></option>').val(bakim.BakimId).html(bakim.BakimAdi));
+                    });
+
+                }
+            });
+        }
+    }
+</script>

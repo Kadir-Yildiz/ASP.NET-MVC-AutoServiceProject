@@ -13,6 +13,7 @@
             <td>Şase No</td>
             <td>Müşteri</td>
             <td>Telefon</td>
+            <td></td>
         </tr>
     </thead>
     @foreach (var item in Model)
@@ -24,6 +25,7 @@
             <td>@item.SaseNo</td>
             <td>@item.Musteri.AdSoyad</td>
             <td>@item.Musteri.Telefon</td>
+            <td>@Html.ActionLink("İşlem Yap","IslemYap","IsEmri", new { isEmriId=item.IsEmriId}, new { @class="btn btn-sm btn-secondary"})</td>
         </tr>
     }
 

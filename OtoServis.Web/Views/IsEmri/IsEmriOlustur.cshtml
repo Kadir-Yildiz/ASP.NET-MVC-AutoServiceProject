@@ -1,12 +1,36 @@
-﻿
+﻿@model IEnumerable<OtoServis.Entities.Servis.IsEmri>
+@using OtoServis.Entities.Servis;
 @{
-    ViewBag.Title = "İş Emri Oluştur";
+
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+@if (ViewBag.AcikIsEmirleri != null)
+{
+
+    var acik = (List<IsEmri>)ViewBag.AcikIsEmirleri;
+    if (acik.Count > 0)
+    {
+        <h5>Müşteriye ait açık iş emirleri : </h5>
+    }
+    <table class="table table-sm table-responsive">
+        @foreach (var item in acik)
+        {
+            <tr>
+                <td>@item.Model.Marka.MarkaAd</td>
+                <td>@item.Model.ModelAd</td>
+                <td>@item.Plaka</td>
+                <td>@item.GelisTarihi.ToShortDateString()</td>
+            </tr>
+        }
+    </table>
+
+}
+<hr />
+
 @using (Html.BeginForm("IsEmriKaydet", "IsEmri"))
 {
-<input type="hidden" name="MusteriId" value="@ViewBag.MusteriId" />
+    <input type="hidden" name="MusteriId" value="@ViewBag.MusteriId" />
     <div class="row">
         <div class="col-md-4">
             Marka
@@ -68,6 +92,30 @@
     </div>
 
 }
+
+<hr />
+
+<table class="table table-sm table-responsive">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Plaka</th>
+            <th>Geliş Tarihi</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Model.Marka.MarkaAd</td>
+            <td>@item.Model.ModelAd</td>
+            <td>@item.Plaka</td>
+            <td>@item.GelisTarihi.ToShortDateString()</td>
+            
+        </tr>
+    }
+
+</table>
 
 
 <script>
