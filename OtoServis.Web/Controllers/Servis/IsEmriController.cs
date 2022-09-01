@@ -14,6 +14,7 @@ namespace OtoServis.Web.Controllers.Servis
         private readonly Repository<Marka> rpMarka = new Repository<Marka>(); 
         private readonly Repository<IsEmri> rpIsEmri = new Repository<IsEmri>(); 
         private readonly Repository<BakimGrup> rpBakimGrup = new Repository<BakimGrup>(); 
+        private readonly Repository<Islem> rpIslem = new Repository<Islem>(); 
         public ActionResult Index(string ara)
         {
             if (ara == "" || ara== null)
@@ -47,7 +48,14 @@ namespace OtoServis.Web.Controllers.Servis
             var baslik = rpIsEmri.Get(x => x.IsEmriId == isEmriId, includeProperties: "Musteri").FirstOrDefault();
             ViewBag.Title ="İşlem Yap - Plaka: " +baslik.Plaka + " - Müşteri: " + baslik.Musteri.AdSoyad;
             ViewBag.BakimGrup = rpBakimGrup.List();
-            return View();
+            ViewBag.IsEmriId = isEmriId;
+            return View(rpIslem.Get(x=> x.IsEmriId==isEmriId).OrderByDescending(x=> x.IslemId).ToList());
+        }
+
+        public ActionResult IslemKaydet(Islem islem)
+        {
+            rpIslem.Insert(islem);
+            return RedirectToAction("IslemYap", new { isEmriId = islem.IsEmriId});
         }
     }
 }

@@ -1,47 +1,55 @@
-﻿
+﻿@model IEnumerable<OtoServis.Entities.Servis.Islem>
 @{
-    
+
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-3">
-        Bakım Grubu
-        @Html.DropDownList("drpBakimGrup", new SelectList(ViewBag.BakimGrup, "BakimGrupId", "BakimGrupAdi"), "Bakım Grubu Seç",
-        new { @class = "form-control form-control-sm", required = "required", onchange="BakimDoldur()"})
-    </div>
-    <div class="col-md-3">
-        Bakım Türü
-        <select name="BakimId" id="BakimId" class="form-control form-control-sm">
-        </select>
-    </div>
-    <div class="col-md-2">
-        Birim Fiyat
-        <div class="input-group input-group-sm ">
-            <span class="input-group-text">&#8378;</span>
-        <input id="bakimBirimFiyat" type="number" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="0" />
+@using (Html.BeginForm("IslemKaydet", "IsEmri"))
+{
+    <input type="hidden" name="IsEmriId" value="@ViewBag.IsEmriId" />
+    <div class="row">
+        <div class="col-md-3">
+            Bakım Grubu
+            @Html.DropDownList("drpBakimGrup", new SelectList(ViewBag.BakimGrup, "BakimGrupId", "BakimGrupAdi"), "Bakım Grubu Seç",
+            new { @class = "form-control form-control-sm", required = "required", onchange = "BakimDoldur()" })
+        </div>
+        <div class="col-md-3">
+            Bakım Türü
+            <select name="BakimId" id="BakimId" required class="form-control form-control-sm">
+            </select>
+            <input type="hidden" name="IslemAd"  value="" id="IslemAd" />
+        </div>
+        <div class="col-md-2">
+            Birim Fiyat
+            <div class="input-group input-group-sm ">
+                <span class="input-group-text">&#8378;</span>
+                <input id="bakimBirimFiyat" required step="any" type="number" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="0" />
+                <input type="hidden" required name="BirimFiyat" id="hdbakimBirimFiyat" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            Adet
+            <input id="bakimAdet" type="number" required name="Adet" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="1" />
+        </div>
+        <div class="col-md-2">
+            Toplam
+            <div class="input-group input-group-sm ">
+                <span class="input-group-text">&#8378;</span>
+                <input id="bakimAraToplam" required name="AraToplam" type="text" class="form-control form-control-sm text-center" readonly value="0" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <br />
+            <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
         </div>
     </div>
-    <div class="col-md-1">
-        Adet
-        <input id="bakimAdet" type="number" class="form-control form-control-sm text-center" onchange="BakimHesapla()" onclick="this.select()" value="1" />
-    </div>
-    <div class="col-md-2">
-        Toplam
-        <div class="input-group input-group-sm ">
-            <span class="input-group-text">&#8378;</span>
-            <input id="bakimAraToplam" type="number" class="form-control form-control-sm text-center" disabled value="0" />
-        </div>
-    </div>
-    <div class="col-md-1">
-        <br />
-        <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
-    </div>
-</div>
+}
+
+
 
 
 <div class="row mt-3">
-    
+
     <div class="col-md-6">
         Diğer İşlem
         <input type="text" class="form-control form-control-sm" />
@@ -61,7 +69,7 @@
         Toplam
         <div class="input-group input-group-sm ">
             <span class="input-group-text">&#8378;</span>
-            <input id="digerAraToplam" type="number" class="form-control form-control-sm text-center" disabled value="0" />
+            <input id="digerAraToplam" type="text" class="form-control form-control-sm text-center" disabled value="0" />
         </div>
     </div>
     <div class="col-md-1">
@@ -71,12 +79,48 @@
 </div>
 
 
+<table class="table table-sm table-responsive table-secondary mt-5">
+    <thead>
+        <tr>
+            <th>Yapılan İşlem</th>
+            <th>Birim Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.IslemAd</td>
+            <td>@item.BirimFiyat.ToString("C")</td>
+            <td>@item.Adet</td>
+            <td>@item.AraToplam.ToString("C")</td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#BakimId').on("change", function () {
+                $('#IslemAd').val($(this).find("option:selected").text());
+            });
+        });
+    </script>
+}
+
+
+
 <script>
 
     function DigerHesapla() {
         var digerBirimFiyat = $('#digerBirimFiyat').val();
         var digerAdet = $('#digerAdet').val();
-        if (digerBirimFiyat.length===0 || digerAdet.length===0) {
+        if (digerBirimFiyat.length === 0 || digerAdet.length === 0) {
             $('#digerAraToplam').val(0);
         } else {
             var digerAraToplam = digerAdet * digerBirimFiyat;
@@ -90,7 +134,9 @@
             $('#bakimAraToplam').val(0);
         } else {
             var bakimAraToplam = bakimAdet * bakimBirimFiyat;
-            $('#bakimAraToplam').val(bakimAraToplam);
+            var birimfiyat = $('#bakimBirimFiyat').val();
+            $('#hdbakimBirimFiyat').val(birimfiyat.replace('.', ','));
+            $('#bakimAraToplam').val(bakimAraToplam.toFixed(2).replace('.',','));
         }
     }
 
@@ -106,9 +152,10 @@
                 url: '/BakimGrup/BakimDoldur',
                 type: 'GET',
                 dataType: 'JSON',
-                data: { bakimGrupId: _bakimGrupId},
+                data: { bakimGrupId: _bakimGrupId },
                 success: function (bakimlar) {
                     $('#BakimId').html("");
+                    $('#BakimId').append($('<option></option>').val("").html("Bakım Türü Seç"));
                     $.each(bakimlar, function (i, bakim) {
                         $('#BakimId').append($('<option></option>').val(bakim.BakimId).html(bakim.BakimAdi));
                     });
