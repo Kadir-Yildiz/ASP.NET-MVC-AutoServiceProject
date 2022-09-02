@@ -17,7 +17,7 @@
             Bakım Türü
             <select name="BakimId" id="BakimId" required class="form-control form-control-sm">
             </select>
-            <input type="hidden" name="IslemAd"  value="" id="IslemAd" />
+            <input type="hidden" name="IslemAd" value="" id="IslemAd" />
         </div>
         <div class="col-md-2">
             Birim Fiyat
@@ -46,38 +46,41 @@
 }
 
 
+@using (Html.BeginForm("IslemKaydet", "IsEmri"))
+{
+    <input type="hidden" name="IsEmriId" value="@ViewBag.IsEmriId" />
 
+    <div class="row mt-3">
 
-<div class="row mt-3">
-
-    <div class="col-md-6">
-        Diğer İşlem
-        <input type="text" class="form-control form-control-sm" />
-    </div>
-    <div class="col-md-2">
-        Birim Fiyat
-        <div class="input-group input-group-sm ">
-            <span class="input-group-text">&#8378;</span>
-            <input id="digerBirimFiyat" type="number" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="0" />
+        <div class="col-md-6">
+            Diğer İşlem
+            <input type="text" required name="IslemAd" class="form-control form-control-sm" />
+        </div>
+        <div class="col-md-2">
+            Birim Fiyat
+            <div class="input-group input-group-sm ">
+                <span class="input-group-text">&#8378;</span>
+                <input id="digerBirimFiyat" type="number" step="any" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="0" />
+                <input type="hidden" name="BirimFiyat" id="hddigerBirimFiyat" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            Adet
+            <input id="digerAdet" type="number" required name="Adet" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="1" />
+        </div>
+        <div class="col-md-2">
+            Toplam
+            <div class="input-group input-group-sm ">
+                <span class="input-group-text">&#8378;</span>
+                <input id="digerAraToplam" type="text" name="AraToplam" class="form-control form-control-sm text-center" readonly value="0" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <br />
+            <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
         </div>
     </div>
-    <div class="col-md-1">
-        Adet
-        <input id="digerAdet" type="number" class="form-control form-control-sm text-center" onchange="DigerHesapla()" onclick="this.select()" value="1" />
-    </div>
-    <div class="col-md-2">
-        Toplam
-        <div class="input-group input-group-sm ">
-            <span class="input-group-text">&#8378;</span>
-            <input id="digerAraToplam" type="text" class="form-control form-control-sm text-center" disabled value="0" />
-        </div>
-    </div>
-    <div class="col-md-1">
-        <br />
-        <input type="submit" class="btn btn-sm btn-success" value="Ekle" />
-    </div>
-</div>
-
+}
 
 <table class="table table-sm table-responsive table-secondary mt-5">
     <thead>
@@ -86,6 +89,7 @@
             <th>Birim Fiyat</th>
             <th>Adet</th>
             <th>Toplam</th>
+            <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
@@ -95,10 +99,77 @@
             <td>@item.BirimFiyat.ToString("C")</td>
             <td>@item.Adet</td>
             <td>@item.AraToplam.ToString("C")</td>
+            <td>
+                <button onclick="silmodal(this)" type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-islemad="@item.IslemAd" data-id="@item.IslemId" data-bs-target="#SilModal">
+                    Sil
+                </button>
+            </td>
+
         </tr>
     }
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-end">Genel Toplam </td>
+            <td>@Model.Sum(x => x.AraToplam).ToString("C")</td>
+        </tr>
+    </tfoot>
 
 </table>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="SilModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">İşlem Silme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                İşlemi Silmek İstiyor Musunuz?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("IslemSil", "IsEmri", FormMethod.Post))
+                {
+                    <input type="hidden" id="hiddenId" name="id" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("KaydetKapat", "IsEmri"))
+{
+    <input type="hidden" name="IsEmriId" value="@ViewBag.IsEmriId" />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 ">
+            <h5>Ödeme İşlemi ve İş Emri Kapatma</h5>
+            <select name="OdemeSekli" class="form-control" required>
+                <option value="">Ödeme Şekli</option>
+                <option value="Nakit">Nakit</option>
+                <option value="Kart">Kart</option>
+            </select>
+            <textarea name="Aciklama" class="form-control mt-2" placeholder="Açıklama"></textarea>
+            <div class="input-group mt-2">
+                <span class="input-group-text">&#8378;</span>
+                <input type="text" name="AlinanUcret" required class="form-control text-center fs-2" onclick="this.select()" name="name" value="0" />
+            </div>
+            <input type="submit" class="btn btn-primary float-end mt-2 " value="Kaydet ve İşlemi Kapat" />
+        </div>
+    </div>
+}
+
+
+
 
 
 
@@ -116,6 +187,11 @@
 
 
 <script>
+    function silmodal(btn) {
+        var xid = $(btn).data('id');
+        $('#hiddenId').val(xid);
+    }
+
 
     function DigerHesapla() {
         var digerBirimFiyat = $('#digerBirimFiyat').val();
@@ -124,7 +200,9 @@
             $('#digerAraToplam').val(0);
         } else {
             var digerAraToplam = digerAdet * digerBirimFiyat;
-            $('#digerAraToplam').val(digerAraToplam);
+            var birimfiyat = $('#digerBirimFiyat').val();
+            $('#hddigerBirimFiyat').val(digerBirimFiyat.replace('.', ','));
+            $('#digerAraToplam').val(digerAraToplam.toFixed(2).replace('.', ','));
         }
     }
     function BakimHesapla() {
@@ -136,7 +214,7 @@
             var bakimAraToplam = bakimAdet * bakimBirimFiyat;
             var birimfiyat = $('#bakimBirimFiyat').val();
             $('#hdbakimBirimFiyat').val(birimfiyat.replace('.', ','));
-            $('#bakimAraToplam').val(bakimAraToplam.toFixed(2).replace('.',','));
+            $('#bakimAraToplam').val(bakimAraToplam.toFixed(2).replace('.', ','));
         }
     }
 

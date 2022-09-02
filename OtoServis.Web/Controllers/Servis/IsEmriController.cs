@@ -46,7 +46,7 @@ namespace OtoServis.Web.Controllers.Servis
         public ActionResult IslemYap(int isEmriId)
         {
             var baslik = rpIsEmri.Get(x => x.IsEmriId == isEmriId, includeProperties: "Musteri").FirstOrDefault();
-            ViewBag.Title ="İşlem Yap - Plaka: " +baslik.Plaka + " - Müşteri: " + baslik.Musteri.AdSoyad;
+            ViewBag.Title ="İşlem Yap - Plaka: " +baslik.Plaka + " - Müşteri : " + baslik.Musteri.AdSoyad;
             ViewBag.BakimGrup = rpBakimGrup.List();
             ViewBag.IsEmriId = isEmriId;
             return View(rpIslem.Get(x=> x.IsEmriId==isEmriId).OrderByDescending(x=> x.IslemId).ToList());
@@ -54,8 +54,27 @@ namespace OtoServis.Web.Controllers.Servis
 
         public ActionResult IslemKaydet(Islem islem)
         {
+            islem.IslemAd = islem.IslemAd.ToUpper();
             rpIslem.Insert(islem);
             return RedirectToAction("IslemYap", new { isEmriId = islem.IsEmriId});
+        }
+        public ActionResult IslemSil(int id)
+        {
+            var silinecek = rpIslem.GetById(id);
+            rpIslem.Delete(silinecek);
+            return RedirectToAction("IslemYap", new { isEmriId = silinecek.IsEmriId });
+        }
+        public ActionResult KaydetKapat(int IsEmriId,string OdemeSekli, string Aciklama, decimal AlinanUcret)
+        {
+            var isemri = rpIsEmri.GetById(IsEmriId);
+            isemri.OdemeSekli = OdemeSekli;
+            isemri.Aciklama = Aciklama;
+            isemri.AlinanUcret = AlinanUcret;
+            isemri.Kapali = true;
+            isemri.KapatmaTarihi = DateTime.Now;
+            rpIsEmri.Update(isemri);
+            TempData["Ok"] = "İş Emri Kaydedildi ve Kapatıldı!";
+            return RedirectToAction("AcikIsEmirleri");
         }
     }
 }
